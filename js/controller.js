@@ -2,22 +2,25 @@ angular.module('starter', [])
 .controller("inicial", function($scope, $http){
   $scope.mensaje="Hola Chavales";
   $scope.criterioBusqueda = "";
-  OAuth.initialize('');
 
-  OAuth.popup('facebook')
-  .done(function(result) {
-    result.get('/me')
-    .done(function (response) {
-      //this will display "John Doe" in the console
-      console.log(response.name);
+  $scope.LogInFacebook = function(){
+    $scope.usuario = [];
+    OAuth.initialize('MiTT1KiGcA2Mb6Iiu7kEEjiEN8c')
+    OAuth.popup('facebook')
+    .done(function(result) {
+      result.me()
+      .done(function (response) {
+        $scope.usuario = response;
+        console.log(JSON.stringify($scope.usuario))
+      })
+      .fail(function (err) {
+        console.log("Error 1"+JSON.stringify(err))
+      });
     })
     .fail(function (err) {
-      //handle error with err
+      console.log("Error 2"+err)
     });
-  })
-  .fail(function (err) {
-    //handle error with err
-  });
+  }
 
 
   $scope.buscar = function(){

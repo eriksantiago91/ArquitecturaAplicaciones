@@ -9,27 +9,29 @@
   <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
 
 </head>
-<body  >
-  <ion-view>
-    <ion-content>
-      <div class="" ng-controller="inicial">
-        <div class="">
-          <label for="criterioBusqueda">Criterio Busqueda: </label>
-          <input type="text" class="form-control" name="criterioBusqueda" value="" ng-model="criterioBusqueda">
-        </div>
-        <button type="button" name="button" ng-click="buscar()">{{mensaje}}</button>
-        <div class="">
-          <div class="" ng-repeat="plan in planes | limitTo:100">
-            <div class="">
+<body ng-controller="inicial">
 
-              <h2>{{plan.title[0]}}</h2>
-            </div>
+  <button type="button" class="btn btn" name="loginFacebook" ng-click="LogInFacebook()">LogInFacebook</button>
 
-          </div>
+  <label for="">:::{{usuario.name}}:::</label>
+  <img ng-src="{{usuario.avatar}}" alt="" />
+  <div class="" >
+    <div class="">
+      <label for="criterioBusqueda">Criterio Busqueda: </label>
+      <input type="text" class="form-control" name="criterioBusqueda" value="" ng-model="criterioBusqueda">
+    </div>
+    <button type="button" name="button" ng-click="buscar()">{{mensaje}}</button>
+    <div class="">
+      <div class="" ng-repeat="plan in planes | limitTo:100">
+        <div class="">
+
+          <h2>{{plan.title[0]}}</h2>
         </div>
+
       </div>
+    </div>
+  </div>
 
-    </ion-content>
-  </ion-view>
+
 </body>
 </html>
