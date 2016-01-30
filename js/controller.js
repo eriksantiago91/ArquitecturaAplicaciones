@@ -1,16 +1,31 @@
-angular.module('starter', [])
+angular.module('starter', ['ngPDFViewer'])
 
-.controller("usuario", function($scope, $rootScope, $http){
-
-})
-
+.controller('TestController', [ '$scope', 'PDFViewerService', function($scope, pdf) {
+	console.log('TestController: new instance');
+	$scope.pdfURL = "test.pdf";
+	$scope.instance = pdf.Instance("viewer");
+	$scope.nextPage = function() {
+		$scope.instance.nextPage();
+	};
+	$scope.prevPage = function() {
+		$scope.instance.prevPage();
+	};
+	$scope.gotoPage = function(page) {
+		$scope.instance.gotoPage(page);
+	};
+	$scope.pageLoaded = function(curPage, totalPages) {
+		$scope.currentPage = curPage;
+		$scope.totalPages = totalPages;
+	};
+	$scope.loadProgress = function(loaded, total, state) {
+		console.log('loaded =', loaded, 'total =', total, 'state =', state);
+	};
+}])
 
 .controller("inicial", function($scope, $rootScope, $http){
   $scope.criterioBusqueda = "";
   $scope.logeo = false;
   $rootScope.usuario = {};
-
-
 
   $scope.LogIn = function(app){
 
@@ -19,17 +34,18 @@ angular.module('starter', [])
     .done(function(result) {
       result.me()
       .done(function (response) {
-        $rootScope.usuario = response;
+        $rootScope.usuario.nombre = response.name;
+        $rootScope.usuario.avatar = response.avatar;
         $scope.logeo = true;
         console.log(JSON.stringify($rootScope.usuario))
-        alert("logeadp");
+        $scope.$apply();
       })
       .fail(function (err) {
-        console.log("Error 1"+JSON.stringify(err))
+        console.log("Error con la data: "+JSON.stringify(err))
       });
     })
     .fail(function (err) {
-      console.log("Error 2"+err)
+      console.log("Error con la conexion: "+err)
     });
   }
 

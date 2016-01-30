@@ -11,16 +11,16 @@
   <script type="text/javascript" src="js/angular.min.js"></script>
   <script type="text/javascript" src="js/controller.js"></script>
   <script type="text/javascript" src="js/oauth.js"></script>
+  <script type="text/javascript" src="js/pdf.js"></script>
+  <script type="text/javascript" src="js/test.js"></script>
+  <script type="text/javascript" src="js/ng-pdfviewer.js"></script>
+  <script type="text/javascript" src="js/pdf.compat.js"></script>
 
   <title>Buscador Planes UTPL</title>
-
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
-
   <link href="css/sb-admin.css" rel="stylesheet">
-
   <link href="css/plugins/morris.css" rel="stylesheet">
-
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -61,7 +61,7 @@
 
       <ul class="nav navbar-right top-nav" ng-if="logeo != false">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img ng-src="{{usuario.avatar}}"></i> <h6 ng-repeat="user in usuario">{{user.name}}</h6> <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="avatar" ng-src="{{usuario.avatar}}">{{usuario.nombre}}<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li>
               <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -122,69 +122,68 @@
       <!-- /.navbar-collapse -->
     </nav>
 
-
-
     <div id="page-wrapper">
 
       <div class="container-fluid">
 
         <!-- Page Heading -->
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-md-8">
             <h1 class="page-header">
               Buscador Planes de Estudio <small>Búsqueda pública</small>
             </h1>
             <form class="form">
               <div class="">
-                <div class="row">
-                  <div class="col-lg-3">
+                <div class="fila">
+                  <div class="col-lg-4">
                     <label for="">Criterio de Busqueda: </label>
                   </div>
 
                   <div class="col-lg-6">
                     <input class="form-control" type="text" name="criterioBusqueda" ng-model="criterioBusqueda">
                   </div>
-                  <div class="col-lg-3">
+                  <div class="col-lg-2">
                     <button type="button" class="btn btn-primary" name="button" ng-click="buscar()">Buscar</button>
                   </div>
-
                 </div>
               </div>
-
             </form>
           </div>
         </div>
-        <!-- /.row -->
 
         <div class="row">
-          <div class="col-lg-12">
-            <div class="alert alert-info alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
-            </div>
-          </div>
-        </div>
-        <!-- /.row -->
-
-        <div class="container">
-          <div class="col-lg-6">
+          <div class="col-md-4">
             <div class="row" ng-repeat="plan in planes">
               <h6>{{plan.title[0]}}</h6>
             </div>
           </div>
-          <div class="col-lg-6" id="lector">
-            <h6>Headers</h6>
-            <h6>{{header}}</h6>
+          <br>
+          <div class="col-md-8" >
+            <div ng-controller="TestController" class="text-center container">
+              <div class="row">
+                <div class="btn-group">
+                  <button class="btn btn-success" ng-click="gotoPage(1)">|<</button>
+                  <button class="btn" ng-click="prevPage()">&lt;</button>
+                  <button class="btn" ng-click="nextPage()">&gt;</button>
+                  <button class="btn" ng-click="gotoPage(totalPages)">&gt;|</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
+              </div>
+              <div class="row"  id="visor">
+                <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
+              </div>
+            </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
+</div>
 
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

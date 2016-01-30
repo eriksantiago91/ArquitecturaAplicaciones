@@ -1,4 +1,16 @@
 #lector{
   border-color: black;
-  
+}
+
+.avatar{
+  border-radius: 5em;
+  height: 1.5em;
+}
+
+.fila{
+  display: inline-block;
+}
+
+#visor{
+  transform: scale(.7,.7);
 }
