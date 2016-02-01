@@ -132,6 +132,7 @@
             <h1 class="page-header">
               Buscador Planes de Estudio <small>Búsqueda pública</small>
             </h1>
+
             <form class="form">
               <div class="">
                 <div class="fila">
@@ -158,24 +159,7 @@
             </div>
           </div>
           <br>
-          <div class="col-md-8" >
-            <div ng-controller="TestController" class="text-center container">
-              <div class="row">
-                <div class="btn-group">
-                  <button class="btn btn-success" ng-click="gotoPage(1)">|<</button>
-                  <button class="btn" ng-click="prevPage()">&lt;</button>
-                  <button class="btn" ng-click="nextPage()">&gt;</button>
-                  <button class="btn" ng-click="gotoPage(totalPages)">&gt;|</button>
-                </div>
-              </div>
-              <div class="row">
-                <span class="label" ng-show="totalPages">{{currentPage}}/{{totalPages}}</span>
-              </div>
-              <div class="row"  id="visor">
-                <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="viewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
