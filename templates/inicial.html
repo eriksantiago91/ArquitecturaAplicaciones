@@ -1,0 +1,50 @@
+<hr>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-primary" ng-repeat="plan in planes | orderBy : '+title[0]'">
+      <div class="panel-heading">
+        <div class="row">
+
+          <h4>{{plan.title[0]}}
+            <div class="btn-group"  style="float: right;">
+              <button type="button" class="btn btn-primary" name="button" ng-click="toggleModal()">
+                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn btn-primary" name="button" ng-click="verContenido($index)">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </button>
+              <button  type="button" class="btn btn-primary" aria-hidden="true"  ng-click="favoritos(plan.title[0], plan.id)">
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+              </button>
+            </div>
+
+          </h4>
+        </div>
+
+      </div>
+      <div class="panel-body">
+        <h4>{{plan.author_s}}</h4>
+        <hr>
+        <h6>{{plan.keywords[0]}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" style="text-align: justify;">
+    <p>
+      {{planVisor.content[0]}}
+    </p>
+  </div>
+  <br>
+
+</div>
+<div class="">
+  <modal title="Buscador Planes UTPL" visible="showModal">
+    <h4>Seleccione un usuario:</h4>
+    <div class="list-group">
+      <button ng-repeat="user in usuariosCompartir | orderBy : '+nombre'" type="button" class="list-group-item">
+        <img ng-src="{{user.avatar}}" alt="" class="avatar" />
+        {{user.nombre}}
+      </button>
+      
+    </div>
+</div>

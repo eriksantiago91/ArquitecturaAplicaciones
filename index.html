@@ -43,80 +43,75 @@
       <!-- Top Menu Items -->
       <ul class="nav navbar-right top-nav" ng-if="logeo != true">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Ingresa o Registrate!<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li>
-              <button type="button" name="button" ng-click="LogIn('facebook')">Facebook</button>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Ingresa o Registrate!<b class="caret"></b></a>
+          <ul class="dropdown-menu" id="ulColor">
+            <li id="btnFace">
+              <button  id="social" type="button" class="btn btn-link btn-lg" name="button" ng-click="LogIn('facebook')">Facebook</button>
             </li>
-            <li>
-              <button type="button" name="button" ng-click="LogIn('twitter')">Twitter</button>
+            <li id="btnTwet">
+              <button id="social" name="button" class="btn btn-link btn-lg" ng-click="LogIn('twitter')">Twitter</button>
             </li>
-            <li>
-              <button type="button" name="button" ng-click="LogIn('google')">Google</button>
+            <li  id="btnGog">
+              <button id="social" type="button" class="btn btn-link btn-lg" name="button" ng-click="LogIn('google')">Google</button>
             </li>
-            <li class="divider"></li>
+
           </ul>
         </li>
       </ul>
 
       <ul class="nav navbar-right top-nav" ng-if="logeo != false">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="avatar" ng-src="{{usuario.avatar}}">{{usuario.nombre}}<b class="caret"></b></a>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown"><img class="avatar" ng-src="{{usuario.avatar}}">{{usuario.nombre}}<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li>
-              <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+              <a href="#" ng-click="LogOut()"><i class="fa fa-fw fa-power-off" ></i> Log Out</a>
             </li>
-            <li>
-              <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Favoritos<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li ng-repeat="fav in favoritos">
+              <a href="#/"></i>{{fav.nombre_plan}}</a>
             </li>
           </ul>
         </li>
       </ul>
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <div class="collapse navbar-collapse navbar-ex1-collapse" ng-if="logeo == true">
         <ul class="nav navbar-nav side-nav">
           <li class="active">
-            <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+            <a href="#/"><i class="fa fa-fw fa-dashboard"></i>Inicio</a>
           </li>
           <li>
-            <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-          </li>
-          <li>
-            <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-          </li>
-          <li>
-            <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-          </li>
-          <li>
-            <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-          </li>
-          <li>
-            <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-          </li>
-          <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Autores <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
-              <li>
-                <a href="#">Dropdown Item</a>
-              </li>
-              <li>
-                <a href="#">Dropdown Item</a>
+              <li ng-repeat="autor in autores | orderBy : '+nombre'">
+                <a href="#filtroAutor" ng-click="filtrarporAutor(autor.nombre)" id="itemMenu">{{autor.nombre | uppercase}} : <span class="badge" style="float: right">{{autor.numeroPlanes}}</span></a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#usuarios"><i class="fa fa-fw fa-arrows-v"></i> Usuarios <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="usuarios" class="collapse">
+              <li ng-repeat="user in usuariosRegistrados | orderBy : '+nombre'">
+                <a href="" ng-click="nuevoSeguido(user.id)" id=""><img class="avatar" ng-src="{{user.avatar}}">{{user.nombre}}</a>
+
+              </li>
+            </ul>
           </li>
+
           <li>
-            <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#seguidos"><i class="fa fa-fw fa-arrows-v"></i> Seguidos <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="seguidos" class="collapse">
+              <li ng-repeat="user in usuariosSeguidos | orderBy : '+nombre'">
+                <a href="" ng-click="nuevoSeguido(user.id)" id=""><img class="avatar" ng-src="{{user.avatar}}">{{user.id}}</a>
+
+              </li>
+            </ul>
           </li>
+
+
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -130,7 +125,7 @@
         <div class="row">
           <div class="col-md-8">
             <h1 class="page-header">
-              Buscador Planes de Estudio <small>Búsqueda pública</small>
+              Buscador Planes de Estudio <small>{{mensaje}}</small>
             </h1>
 
             <form class="form">
@@ -144,7 +139,7 @@
                     <input class="form-control" type="text" name="criterioBusqueda" ng-model="criterioBusqueda">
                   </div>
                   <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" name="button" ng-click="buscar()">Buscar</button>
+                    <button type="button" class="btn btn-primary" name="button" ng-click="buscar()" autofocus>Buscar</button>
                   </div>
                 </div>
               </div>
@@ -152,22 +147,15 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="row" ng-repeat="plan in planes">
-              <h6>{{plan.title[0]}}</h6>
-            </div>
-          </div>
-          <br>
-          
-        </div>
+        <div ng-view></div>
+
       </div>
     </div>
   </div>
-</div>
 
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.3/angular-route.js"></script>
 </body>
 
 </html>

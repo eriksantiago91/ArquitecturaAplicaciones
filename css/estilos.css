@@ -2,9 +2,19 @@
   border-color: black;
 }
 
+.modal{
+  width: auto;
+  overflow:  inherit;
+}
+
+body{
+  
+}
+
 .avatar{
   border-radius: 5em;
   height: 1.5em;
+  float: right;
 }
 
 .fila{
@@ -13,4 +23,33 @@
 
 #visor{
   transform: scale(.7,.7);
+}
+
+#itemMenu{
+  transform: scale(.8, .8);
+}
+
+#btnFace{
+  background-color: #3b5998;
+}
+
+#ulColor{
+  background-color: #000000;
+}
+
+#btnGog{
+  background-color: #db4437;
+}
+
+#btnTwet{
+  background-color: #10dffd;
+}
+
+#social{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.body{
+  background-color: #678987;
 }
